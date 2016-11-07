@@ -1,7 +1,11 @@
 library(rjson)
 
+getAltmetricVersion <- function() {
+  return('v1')
+}
+
 getAltmetricURL <- function() {
-  return("http://api.altmetric.com/v1")
+  return(paste0("http://api.altmetric.com/",getAltmetricVersion()))
 }
 
 queryString <- function(type, required_param, ...) {
