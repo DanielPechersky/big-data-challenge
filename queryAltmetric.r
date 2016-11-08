@@ -1,4 +1,4 @@
-library(rjson)
+library('rjson')
 
 getAltmetricVersion <- function() {
   return('v1')
