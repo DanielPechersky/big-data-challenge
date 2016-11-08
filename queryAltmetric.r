@@ -26,11 +26,8 @@ queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
       stop("Key is necessary for fetch type query")
     return(queryFetchType(type, id, key, ...))
   }
-  if (!is.null(key))
-    key_param <- paste0('key=',key)
-  else
-    key_param <- NULL
-  return(query(type, id, key_param))
+
+  return(query(type, id, if (!is.null(key)) paste0('key=',key) else NULL))
 }
 
 queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, ...) {
@@ -70,14 +67,12 @@ getTimeFrames <- function() {
 }
 
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
-  params <- c(
+  result <- query('citations', timeframe,
     if(!is.null(page)) paste0("page=", page) else NULL,
     if(!is.null(num_results)) paste0("num_results=", num_results) else NULL,
     if(!is.null(cited_in)) paste0("cited_in=", cited_in) else NULL,
     if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix) else NULL,
     if(!is.null(key)) paste0("key=", key) else NULL)
-  params <- params[!is.null(params)]
-  result <- query('citations', timeframe, params, include_total)
   if (include_total)
     return(list(results = result$results, total = result$query$total))
   return(result$results)
