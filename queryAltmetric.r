@@ -5,7 +5,7 @@ getAltmetricVersion <- function() {
 }
 
 getAltmetricURL <- function() {
-  return(paste0("http://api.altmetric.com/",getAltmetricVersion()))
+  return(paste0("http://api.altmetric.com/", getAltmetricVersion()))
 }
 
 queryString <- function(type, required_param, ...) {
