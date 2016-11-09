@@ -72,13 +72,13 @@ mergeQueries <- function(queries) {
 
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, merge_queries=TRUE, include_total=FALSE) {
   params <- c('citations', timeframe,
-    if(!is.null(num_results)) paste0("num_results=", num_results) else NULL,
-    if(!is.null(cited_in)) paste0("cited_in=", cited_in) else NULL,
-    if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix) else NULL,
-    if(!is.null(key)) paste0("key=", key) else NULL)
+    if(!is.null(num_results)) paste0("num_results=", num_results),
+    if(!is.null(cited_in)) paste0("cited_in=", cited_in),
+    if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix),
+    if(!is.null(key)) paste0("key=", key))
 
   if (is.null(page) || length(page) == 1) {
-    c(params, if(!is.null(page)) paste0("page=", page) else NULL)
+    c(params, if(!is.null(page)) paste0("page=", page))
     q <- do.call(query, as.list(params))
     results <- q$results
   } else {
