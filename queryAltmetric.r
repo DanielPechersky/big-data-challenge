@@ -17,7 +17,7 @@ query <- function(...) {
 }
 
 queryFetchType <- function(type, id, key, ...) {
-  return(query(paste0(if(fetch) 'fetch/' else '', type), id, c(..., paste0('key=',key))))
+  return(query(paste0(if(fetch) 'fetch/', type), id, c(..., paste0('key=',key))))
 }
 
 queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
@@ -27,7 +27,7 @@ queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
     return(queryFetchType(type, id, key, ...))
   }
 
-  return(query(type, id, if (!is.null(key)) paste0('key=',key) else NULL))
+  return(query(type, id, if (!is.null(key)) paste0('key=',key)))
 }
 
 queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, ...) {
@@ -72,13 +72,13 @@ mergeQueries <- function(queries) {
 
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, merge_queries=TRUE, include_total=FALSE) {
   params <- c('citations', timeframe,
-    if(!is.null(num_results)) paste0("num_results=", num_results) else NULL,
-    if(!is.null(cited_in)) paste0("cited_in=", cited_in) else NULL,
-    if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix) else NULL,
-    if(!is.null(key)) paste0("key=", key) else NULL)
+    if(!is.null(num_results)) paste0("num_results=", num_results),
+    if(!is.null(cited_in)) paste0("cited_in=", cited_in),
+    if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix),
+    if(!is.null(key)) paste0("key=", key))
 
   if (is.null(page) || length(page) == 1) {
-    c(params, if(!is.null(page)) paste0("page=", page) else NULL)
+    c(params, if(!is.null(page)) paste0("page=", page))
     q <- do.call(query, as.list(params))
     results <- q$results
   } else {
