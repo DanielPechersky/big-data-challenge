@@ -17,7 +17,7 @@ query <- function(...) {
 }
 
 queryFetchType <- function(type, id, key, ...) {
-  return(query(paste0(if(fetch) 'fetch/', type), id, c(..., paste0('key=',key))))
+  return(query(paste0('fetch/', type), id, c(..., paste0('key=',key))))
 }
 
 queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
@@ -27,7 +27,7 @@ queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
     return(queryFetchType(type, id, key, ...))
   }
 
-  return(query(type, id, if (!is.null(key)) paste0('key=',key)))
+  return(query(type, id, if(!is.null(key)) paste0('key=',key)))
 }
 
 queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, ...) {
