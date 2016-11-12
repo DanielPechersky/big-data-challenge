@@ -66,10 +66,6 @@ getTimeFrames <- function() {
            '1y'))
 }
 
-mergeQueries <- function(queries) {
-  return(unlist(queries, recursive=FALSE))
-}
-
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
   params <- c('citations', timeframe,
     if(!is.null(num_results)) paste0("num_results=", num_results),
@@ -92,9 +88,13 @@ queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL
     results <- unlist(results, recursive=FALSE)
   }
 
-  if (include_total)
-    return(list(results=results, total=q$query$total))
-  return(results)
+  return(
+    if (include_total) list(results=results, total=q$query$total)
+    else results)
+}
+
+mergeQueries <- function(queries) {
+  return(unlist(queries, recursive=FALSE))
 }
 
 elementsFromArticles <- function(articles, ...) {
