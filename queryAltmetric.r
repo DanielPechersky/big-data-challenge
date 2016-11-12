@@ -74,22 +74,19 @@ queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL
     if(!is.null(key)) paste0("key=", key))
 
   if (is.null(page) || length(page) == 1) {
-    c(params, if(!is.null(page)) paste0("page=", page))
-    q <- do.call(query, as.list(params))
-    results <- q$results
+    query_ <- do.call(query, as.list(c(params, if(!is.null(page)) paste0("page=", page))))
+    results <- query_$results
   } else {
     results = vector(mode = "list", length = length(page))
-    i <- 1
-    for (p in page) {
-      q <- do.call(query, as.list(c(params, paste0("page=", p))))
-      results[[i]] <- q$results
-      i <- i+1
+    for (i in 1:length(page)) {
+      query_ <- do.call(query, as.list(c(params, paste0("page=", page[[i]]))))
+      results[[i]] <- query_$results
     }
     results <- unlist(results, recursive=FALSE)
   }
 
   return(
-    if (include_total) list(results=results, total=q$query$total)
+    if (include_total) list(results=results, total=query_$query$total)
     else results)
 }
 
