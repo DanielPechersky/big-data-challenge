@@ -70,7 +70,7 @@ mergeQueries <- function(queries) {
   return(unlist(queries, recursive=FALSE))
 }
 
-queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, merge_queries=TRUE, include_total=FALSE) {
+queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
   params <- c('citations', timeframe,
     if(!is.null(num_results)) paste0("num_results=", num_results),
     if(!is.null(cited_in)) paste0("cited_in=", cited_in),
@@ -89,8 +89,7 @@ queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL
       results[[i]] <- q$results
       i <- i+1
     }
-    if (merge_queries)
-      results <- mergeQueries(results)
+    results <- unlist(results, recursive=FALSE)
   }
 
   if (include_total)
