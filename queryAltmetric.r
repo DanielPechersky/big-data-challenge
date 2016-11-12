@@ -99,6 +99,5 @@ queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL
 }
 
 elementsFromArticles <- function(articles, ...) {
-  elements <- c(...)
-  return(sapply(articles, FUN=function(article) article[elements]))
+  return(sapply(articles, '[', c(...)))
 }
