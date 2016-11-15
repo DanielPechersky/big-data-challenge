@@ -73,8 +73,8 @@ queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL
     if(!is.null(doi_prefix)) paste0("doi_prefix=", doi_prefix),
     if(!is.null(key)) paste0("key=", key))
 
-  if (is.null(page) || length(page) == 1) {
-    query_ <- do.call(query, as.list(c(params, if(!is.null(page)) paste0("page=", page))))
+  if (is.null(page)) {
+    query_ <- do.call(query, params)
     results <- query_$results
   } else {
     results = vector(mode = "list", length = length(page))
