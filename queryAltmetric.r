@@ -1,5 +1,7 @@
 library('rjson')
 
+# http://api.altmetric.com/
+
 getAltmetricVersion <- function() {
   return('v1')
 }
