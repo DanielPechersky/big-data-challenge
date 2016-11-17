@@ -19,53 +19,56 @@ query <- function(...) {
 }
 
 # http://api.altmetric.com/docs/call_fetch.html
-queryFetchType <- function(type, id, key, ...) {
-  return(query(paste0('fetch/', type), id, c(..., paste0('key=',key))))
+queryFetchType <- function(type, id, key, include_sources=NULL, include_sections=NULL) {
+  return(query(paste0('fetch/', type), id, c(
+    if(!is.null(include_sources)) paste0('include_sources=',include_sources),
+    if(!is.null(include_sections)) paste0('include_sections=',include_sections),
+    paste0('key=',key))))
 }
 
-queryIDType <- function(type, id, key=NULL, fetch=FALSE, ...) {
+queryIDType <- function(type, id, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
   if (fetch) {
     if (is.null(key))
       stop("Key is necessary for fetch type query")
-    return(queryFetchType(type, id, key, ...))
+    return(queryFetchType(type, id, key, include_sources, include_sections))
   }
 
   return(query(type, id, if(!is.null(key)) paste0('key=',key)))
 }
 
 # http://api.altmetric.com/docs/call_id.html
-queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('id', altmetric_ID, key, fetch, ...))
+queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('id', altmetric_ID, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_doi.html
-queryDOI <- function(doi, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('doi', doi, key, fetch, ...))
+queryDOI <- function(doi, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('doi', doi, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_pmid.html
-queryPMID <- function(pmid, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('pmid', pmid, key, fetch, ...))
+queryPMID <- function(pmid, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('pmid', pmid, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_arxiv.html
-queryArXiv <- function(arXiv_ID, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('arxiv', arXiv_ID, key, fetch, ...))
+queryArXiv <- function(arXiv_ID, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('arxiv', arXiv_ID, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_ads.html
-queryADS <- function(ADS_bibcode, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('ads', ADS_bibcode, key, fetch, ...))
+queryADS <- function(ADS_bibcode, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('ads', ADS_bibcode, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_uri.html
-queryURI <- function(uri, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('uri', uri, key, fetch, ...))
+queryURI <- function(uri, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('uri', uri, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 # http://api.altmetric.com/docs/call_isbn.html
-queryISBN <- function(isbn, key=NULL, fetch=FALSE, ...) {
-  return(queryIDType('isbn', isbn, key, fetch, ...))
+queryISBN <- function(isbn, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL) {
+  return(queryIDType('isbn', isbn, key, fetch, include_sources=NULL, include_sections=NULL))
 }
 
 getTimeFrames <- function() {
