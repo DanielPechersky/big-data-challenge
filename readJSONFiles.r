@@ -5,3 +5,6 @@ readJSONFiles <- function(path_to_files, debug=FALSE)
          if(debug) function(path) {print(path); return(fromJSON(file=path))}
          else function(path) fromJSON(file=path))
 
+elementsFromArticles <- function(articles, ...) {
+  return(sapply(articles, '[', c(...)))
+}
