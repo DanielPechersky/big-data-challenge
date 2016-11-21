@@ -32,31 +32,31 @@ queryIDType <- function(type, id, key=NULL, fetch=FALSE, include_sources=NULL, i
 
 queryID <- function(altmetric_ID, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_id.html
-  queryIDType('id', altmetric_ID, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('id', altmetric_ID, key, fetch, include_sources, include_sections)
 
 queryDOI <- function(doi, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_doi.html
-  queryIDType('doi', doi, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('doi', doi, key, fetch, include_sources, include_sections)
 
 queryPMID <- function(pmid, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_pmid.html
-  queryIDType('pmid', pmid, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('pmid', pmid, key, fetch, include_sources, include_sections)
 
 queryArXiv <- function(arXiv_ID, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_arxiv.html
-  queryIDType('arxiv', arXiv_ID, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('arxiv', arXiv_ID, key, fetch, include_sources, include_sections)
 
 queryADS <- function(ADS_bibcode, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_ads.html
-  queryIDType('ads', ADS_bibcode, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('ads', ADS_bibcode, key, fetch, include_sources, include_sections)
 
 queryURI <- function(uri, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_uri.html
-  queryIDType('uri', uri, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('uri', uri, key, fetch, include_sources, include_sections)
 
 queryISBN <- function(isbn, key=NULL, fetch=FALSE, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_isbn.html
-  queryIDType('isbn', isbn, key, fetch, include_sources=NULL, include_sections=NULL)
+  queryIDType('isbn', isbn, key, fetch, include_sources, include_sections)
 
 
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
