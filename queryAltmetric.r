@@ -60,7 +60,6 @@ queryISBN <- function(isbn, key=NULL, fetch=FALSE, include_sources=NULL, include
 
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
   # http://api.altmetric.com/docs/call_citations.html
-  
   params <- c('citations', timeframe,
     if(!is.null(num_results)) paste0("num_results=", num_results),
     if(!is.null(cited_in)) paste0("cited_in=", cited_in),
