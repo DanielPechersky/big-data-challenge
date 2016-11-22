@@ -58,7 +58,6 @@ queryISBN <- function(isbn, key=NULL, fetch=FALSE, include_sources=NULL, include
   # http://api.altmetric.com/docs/call_isbn.html
   queryIDType('isbn', isbn, key, fetch, include_sources, include_sections)
 
-
 queryCitations <- function(timeframe, page=NULL, num_results=NULL, cited_in=NULL, doi_prefix=NULL, key=NULL, include_total=FALSE) {
   # http://api.altmetric.com/docs/call_citations.html
   
