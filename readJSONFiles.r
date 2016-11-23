@@ -1,16 +1,29 @@
 library(rjson)
 
-readJSONFiles <- function(path_to_files, ..., debug=FALSE) {
-  attributes <- c(...)
-  
-  readPath <- 
-    if (length(attributes) == 0) function(path) fromJSON(file=path) 
-  else function(path) fromJSON(file=path)[attributes]
-  
+applyToJSONFiles <- function(path_to_files, FUN=NULL) {
   return(lapply(dir(path_to_files, pattern="\\.json$", full.names=TRUE, recursive=TRUE),
-                if (debug) function(path) {print(path); return(readPath(path))}
-                else readPath))
+                FUN(fromJSON(file=path))))
 }
+
+functionToDebug <- function(f) function(file) {
+  print(file)
+  return(f(file))
+  }
+
+elementsFromJSONFiles <- function(path_to_files, ..., debug=FALSE) {
+  attributes <- c(...)
+  fun <- function(file) file[attributes]
   
+  return(applyToJSONFiles(path_to_files,
+                          if (debug) functionToDebug(fun)
+                          else fun))
+}
+
+readJSONFiles <- function(path_to_files, debug=FALSE) {
+  fun <- function(file) file
+  applyToJSONFiles(if (debug) functionToDebug(fun)
+                   else fun)
+}
+
 elementsFromArticles <- function(articles, ...)
   sapply(articles, '[', c(...))
