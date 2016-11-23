@@ -1,4 +1,4 @@
-library("rjson")
+library(rjson)
 
 readJSONFiles <- function(path_to_files, debug=FALSE)
   lapply(dir(path_to_files, full.names=TRUE, recursive=TRUE), 

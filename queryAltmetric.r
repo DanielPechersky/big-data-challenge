@@ -1,4 +1,4 @@
-library('rjson')
+library(rjson)
 
 # http://api.altmetric.com/
 
