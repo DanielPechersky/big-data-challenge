@@ -1,14 +1,14 @@
 library(rjson)
 
+functionToDebug <- function(f) function(file) {
+  print(file)
+  return(f(file))
+}
+
 applyToJSONFiles <- function(path_to_files, FUN=NULL) {
   return(lapply(dir(path_to_files, pattern="\\.json$", full.names=TRUE, recursive=TRUE),
                 FUN(fromJSON(file=path))))
 }
-
-functionToDebug <- function(f) function(file) {
-  print(file)
-  return(f(file))
-  }
 
 elementsFromJSONFiles <- function(path_to_files, ..., debug=FALSE) {
   attributes <- c(...)
