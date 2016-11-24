@@ -1,5 +1,7 @@
 library(rjson)
 
+# https://help.altmetric.com/support/solutions/articles/6000086844-sample-api-response
+
 file_from_path <- function(path)
   fromJSON(file=path)
 
