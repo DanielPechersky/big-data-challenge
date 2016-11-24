@@ -1,29 +1,23 @@
 library(rjson)
 
-functionToDebug <- function(f) function(file) {
-  print(file)
-  return(f(file))
-}
+file_from_path <- function(path)
+  fromJSON(file=path)
 
-applyToJSONFiles <- function(path_to_files, FUN=NULL) {
-  return(lapply(dir(path_to_files, pattern="\\.json$", full.names=TRUE, recursive=TRUE),
-                FUN(fromJSON(file=path))))
-}
+applyToJSONPaths <- function(path_to_files, FUN, ...)
+  sapply(dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
+         FUN, ..., USE.NAMES = FALSE)
 
-elementsFromJSONFiles <- function(path_to_files, ..., debug=FALSE) {
+applyToJSONFiles <- function(path_to_files, FUN, ...)
+  applyToJSONPaths(path_to_files,
+         function(path, ...) FUN(file_from_path(path), ...), ...)
+
+elementsFromJSONFiles <- function(path_to_files, ...) {
   attributes <- c(...)
-  fun <- function(file) file[attributes]
-  
-  return(applyToJSONFiles(path_to_files,
-                          if (debug) functionToDebug(fun)
-                          else fun))
+  return(applyToJSONFiles(path_to_files, function(file) file[attributes]))
 }
 
-readJSONFiles <- function(path_to_files, debug=FALSE) {
-  fun <- function(file) file
-  applyToJSONFiles(if (debug) functionToDebug(fun)
-                   else fun)
-}
+readJSONFiles <- function(path_to_files)
+  applyToJSONFiles(path_to_files, function(file) file)
 
 elementsFromArticles <- function(articles, ...)
   sapply(articles, '[', c(...))
