@@ -10,8 +10,10 @@ getAltmetricURL <- function()
 queryString <- function(type, required_param, ...)
   paste0(paste(getAltmetricURL(), type, required_param, sep="/"), '?', paste(c(...), collapse='&'))
 
-query <- function(...)
-  fromJSON(file=queryString(...))
+query <- function(...) {
+  library(rjson)
+  return(rjson::fromJSON(file=queryString(...)))
+}
 
 queryFetchType <- function(type, id, key, include_sources=NULL, include_sections=NULL)
   # http://api.altmetric.com/docs/call_fetch.html

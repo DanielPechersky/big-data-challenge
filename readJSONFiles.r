@@ -6,9 +6,11 @@ applyToJSONPaths <- function(path_to_files='.', FUN, ...)
   sapply(dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
          FUN, ..., USE.NAMES = FALSE)
 
-applyToJSONFiles <- function(path_to_files='.', FUN, ...)
-  applyToJSONPaths(path_to_files,
-         function(path, ...) FUN(fromJSON(file=path), ...), ...)
+applyToJSONFiles <- function(path_to_files='.', FUN, ...) {
+  library(rjson)
+  return(applyToJSONPaths(path_to_files,
+         function(path, ...) FUN(rjson::fromJSON(file=path), ...), ...))
+}
 
 elementsFromJSONFiles <- function(path_to_files='.', ...) {
   attributes <- c(...)
