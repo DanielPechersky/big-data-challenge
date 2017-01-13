@@ -1,5 +1,3 @@
-library(rjson)
-
 # http://api.altmetric.com/
 
 getAltmetricVersion <- function() 'v1'

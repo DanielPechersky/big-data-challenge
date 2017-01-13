@@ -1,14 +1,22 @@
-library(rjson)
-
 # https://help.altmetric.com/support/solutions/articles/6000086844-sample-api-response
 
-applyToJSONPaths <- function(path_to_files='.', FUN, ...)
-  sapply(dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
-         FUN, ..., USE.NAMES = FALSE)
+applyToJSONPaths <- function(cl, path_to_files='.', FUN, ...)
+  lapply(dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
+         FUN, ...)
 
-applyToJSONFiles <- function(path_to_files='.', FUN, ...) {
+applyToJSONFiles <- function(cl, path_to_files='.', FUN, ...) {
   library(rjson)
   return(applyToJSONPaths(path_to_files,
+         function(path, ...) FUN(rjson::fromJSON(file=path), ...), ...))
+}
+
+parApplyToJSONPaths <- function(cl, path_to_files='.', FUN, ...)
+  parLapply(cl, dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
+         FUN, ...)
+
+parApplyToJSONFiles <- function(cl, path_to_files='.', FUN, ...) {
+  library(rjson)
+  return(applyToJSONPaths(cl, path_to_files,
          function(path, ...) FUN(rjson::fromJSON(file=path), ...), ...))
 }
 
