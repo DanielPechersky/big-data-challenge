@@ -10,12 +10,15 @@ applyToJSONFiles <- function(path_to_files='.', FUN, ...) {
          function(path, ...) FUN(rjson::fromJSON(file=path), ...), ...))
 }
 
-parApplyToJSONPaths <- function(cl, path_to_files='.', FUN, ...)
-  parLapply(cl, dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
-         FUN, ...)
+parApplyToJSONPaths <- function(cl, path_to_files='.', FUN, ...) {
+  library(parallel)
+  return(parLapply(cl, dir(path_to_files, pattern='\\.json$', full.names=TRUE, recursive=TRUE),
+         FUN, ...))
+}
 
 parApplyToJSONFiles <- function(cl, path_to_files='.', FUN, ...) {
   library(rjson)
+  library(parallel)
   return(applyToJSONPaths(cl, path_to_files,
          function(path, ...) FUN(rjson::fromJSON(file=path), ...), ...))
 }
